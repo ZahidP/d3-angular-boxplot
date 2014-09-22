@@ -23,7 +23,7 @@ See: https://github.com/EpiphanyMachine/d3AngularIntegration   d3-angular integr
 
 
 <b><h4> (boxPlot) Directive: </b></h4>
-scope.render(data): 'scope.selection' is passed as the data object. This will select new players to graph. Additionally, we will watch for changes in the data object, and update the chart when it has changed. 
+scope.render(data): 'scope.selection' is passed as the data object. This will select new objects to graph. Additionally, we will watch for changes in the data object, and update the chart when it has changed. 
 
 
 
