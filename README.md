@@ -17,7 +17,7 @@ See: https://github.com/EpiphanyMachine/d3AngularIntegration   d3-angular integr
 
 
 <h4><b> Controller: </b></h4>
-'$scope.selection' array: the buttons underneath the boxplot are used to push new indices which you want to graph into this $scope.selection. This is then passed into the <box-plot data=selection></box-plot> directive.
+'$scope.selection' array: the buttons underneath the boxplot are used to push new indices which you want to graph into this $scope.selection. It is then passed into the "<box-plot data=selection></box-plot> directive."
 
 
 
