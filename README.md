@@ -18,17 +18,17 @@ More changes/features should be coming (show names on hover, perhaps show mean/m
 
 
 
-<h3><b> Controller: </b></h3>
+<h4><b> Controller: </b></h4>
 
 '$scope.selection' array: the buttons are used to push new indices which you want to graph into this array
 
 
-<b><h3> (boxPlot) Directive: </b></h3>
+<b><h4> (boxPlot) Directive: </b></h4>
 
 scope.render(data): 'scope.selection' is passed as the data object. This will select new players to graph.
 
 
-<b><h3> Changes to original box.js from bl.ocks.org: </b></h3>
+<b><h4> Changes to original box.js from bl.ocks.org: </b></h4>
 
 
 svg.exit().transition()
