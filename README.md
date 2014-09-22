@@ -19,27 +19,23 @@ More changes/features should be coming (show names on hover, perhaps show mean/m
 
 
 <h4><b> Controller: </b></h4>
-
 '$scope.selection' array: the buttons are used to push new indices which you want to graph into this array
 
 
-<b><h4> (boxPlot) Directive: </b></h4>
 
+
+<b><h4> (boxPlot) Directive: </b></h4>
 scope.render(data): 'scope.selection' is passed as the data object. This will select new players to graph.
 
 
+
 <b><h4> Changes to original box.js from bl.ocks.org: </b></h4>
-
-
 svg.exit().transition()
     .duration(500)
     .attr("y", 20)
     .style("opacity", 1e-6)
     .remove();
     
-This is used to remove any extra boxes.
-
-See: http://bost.ocks.org/mike/circles/ for explanation on enter() & exit() .
-
+This is used to remove any extra boxes. See: http://bost.ocks.org/mike/circles/ for explanation on enter() & exit() .
 Essentially, enter() is used whenever an additionaly element enters your dataset, and exit() is used whenever an element is removed. From your dataset.
 
