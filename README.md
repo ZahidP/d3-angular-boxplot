@@ -13,7 +13,12 @@ Also, let me know how I can improve my code in any way.
 More changes/features should be coming (show names on hover, perhaps show mean/median/variance etc).
 
 
-Controller:
+
+
+
+
+
+<b> Controller: </b>
 
 '$scope.selection' array: the buttons are used to push new indices which you want to graph into this array
 
