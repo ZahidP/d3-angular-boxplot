@@ -17,13 +17,13 @@ See: https://github.com/EpiphanyMachine/d3AngularIntegration   d3-angular integr
 
 
 <h4><b> Controller: </b></h4>
-'$scope.selection' array: the buttons are used to push new indices which you want to graph into this array
+'$scope.selection' array: the buttons underneath the boxplot are used to push new indices which you want to graph into this $scope.selection. This is then passed into the <box-plot data="selection"></box-plot> directive.
 
 
 
 
 <b><h4> (boxPlot) Directive: </b></h4>
-scope.render(data): 'scope.selection' is passed as the data object. This will select new players to graph.
+scope.render(data): 'scope.selection' is passed as the data object. This will select new players to graph. Additionally, we will watch for changes in the data object, and update the chart when it has changed. 
 
 
 
