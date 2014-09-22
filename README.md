@@ -4,7 +4,7 @@ d3-angular-boxpot
 D3.js Boxplot Directive using Angular 
 (based off of Mike Bostock's d3-boxplot and Gregory Hilkert's d3AngularIntegration)
 
-See: http://bl.ocks.org/mbostock/4061502   d3-boxplot
+See: http://bl.ocks.org/mbostock/4061502   d3-boxplot <br/>
 See: https://github.com/EpiphanyMachine/d3AngularIntegration   d3-angular integration
 
 My explanation skills are likely quite poor, please let me know if I can improve. Also, let me know how I can improve my code in any way. More changes/features should be coming (show names on hover, perhaps show mean/median/variance etc).
