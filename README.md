@@ -28,11 +28,11 @@ scope.render(data): 'scope.selection' is passed as the data object. This will se
 
 
 <b><h4> Changes to original box.js from bl.ocks.org: </b></h4>
-svg.exit().transition()
-    .duration(500)
-    .attr("y", 20)
-    .style("opacity", 1e-6)
-    .remove();
+svg.exit()<br/> .transition()
+<br/>    .duration(500)
+<br/>    .attr("y", 20)
+<br/>    .style("opacity", 1e-6)
+<br/>    .remove();
     
 This is used to remove any extra boxes. See: http://bost.ocks.org/mike/circles/ for explanation on enter() & exit() .
 Essentially, enter() is used whenever an additionaly element enters your dataset, and exit() is used whenever an element is removed. From your dataset.
