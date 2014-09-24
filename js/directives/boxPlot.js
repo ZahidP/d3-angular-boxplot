@@ -442,7 +442,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
                   .attr("width", "100%");
                   */
   		//    svg.selectAll('.box').remove();
-  		        var svg1 =  svg.data(dataFinal);
+  		        var svg1 =  svg.data(dataFinal, function(d) {  return d;});
               svg1.exit().transition()
                         .duration(500)
                         .attr("y", 20)
