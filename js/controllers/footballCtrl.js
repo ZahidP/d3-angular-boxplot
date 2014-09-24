@@ -46,7 +46,7 @@ boxPlotApp.controller('footballCtrl', function ($scope) {
     var idx2 = $scope.players.indexOf(playerName);
     console.log('Computed idx: ' + idx);
 
-    if ($scope.selection.length < 6) {
+    
 
       // is currently selected
       if (idx > -1) {
@@ -57,13 +57,15 @@ boxPlotApp.controller('footballCtrl', function ($scope) {
 
 
       // is newly selected
-      else {                  // && $scope.selection.length <7)   <---- will need to add this
-        $scope.selection.push(idx2);
-        $scope.selectedPlayers.push(playerName);
-        console.log('Index did not exist, we added: ' + playerName + ' new array is: ' + $scope.selection);
-      }
+      else {                  
+          if ($scope.selection.length < 6) {
+              $scope.selection.push(idx2);
+              $scope.selectedPlayers.push(playerName);
+              console.log('Index did not exist, we added: ' + playerName + ' new array is: ' + $scope.selection);
+          }
+      };
 
-    };
+    
   };
   
 
