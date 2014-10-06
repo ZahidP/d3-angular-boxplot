@@ -116,7 +116,7 @@
   #box-container {
     padding-left:4.5em;
     padding-right:4.5em;
-    border:1px solid rgba(160,160,160,.8);
+    border:0px solid rgba(160,160,160,.8);
     margin-bottom: 2em;
     margin-top: 2em;
     height:32em;
@@ -133,6 +133,27 @@
 
   }
 
+  #grabber-row {
+    text-align:left;
+    background-color: rgba(30,30,30,.95);
+    font-family: Lato, Open Sans;
+  }
+
+  #grabber-row > div > h2, #grabber-row > div > h4 {
+    font-family: Lato, Open Sans;
+    font-weight: 300;
+    color:rgb(210,210,210);
+  }
+
+  #grabber-title {
+    text-align: right;
+    font-weight: 400;
+    color: rgb(210,210,210);
+  }
+
+body {
+  padding-top: 2.5em;
+}
  
 
   </style>
@@ -141,6 +162,12 @@
 
 $(document).ready(function () {
 
+  $('#to-top').click(function(){
+    console.log('scroll');
+      $('html, body').animate({
+          scrollTop: $('body').offset().top
+      }, 750); 
+  });
 
 
 });  
@@ -152,9 +179,73 @@ $(document).ready(function () {
 <body ng-app="boxPlotApp">
 
  
+<div class="row">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar-land">
+        <div class="container">
+        <!-- brand name and/or logo -->
+            <div class="navbar-brand" id="brand-land"> 
+              d3-angular-boxplot
+            </div>
+        <!-- other stuff on the right -->
+          <ul class="nav navbar-nav navbar-right" id="brand-side">
+            <li >
+              <a href="#" id="to-top"> Back to Top </a>
+            </li>
 
+         
+          </ul>
+        </div>
+      </nav>
+    </div>
 
 <div class="container-fluid" ng-controller="footballCtrl">
+
+<div class="row" id="grabber-row">
+  <div class="col-md-1">
+
+  </div>
+  <div class="col-md-10">
+    <div class="row" id="grabber-title">
+      <h2> d3-angular-directive </h2>
+    </div>
+    <h4>  
+      <div class="row">
+      <b>D3.js Boxplot Directive using Angular (based off of Mike Bostock's d3-boxplot <br/>
+          and Gregory Hilkert's d3AngularIntegration) </b>
+        <br/><br/> 
+
+        See: http://bl.ocks.org/mbostock/4061502 d3-boxplot <br/> 
+        See: https://github.com/EpiphanyMachine/d3AngularIntegration d3-angular integration <br/> <br/>
+
+        This readme could probably use some work, please let me know if I can improve. Also any suggestions are welcome. <br/><br/>
+      </div>
+      <div class="row">
+        <b> Controller: </b> <br/>
+
+        '$scope.selection' array: the buttons underneath the boxplot are used to push new indices <br/>
+        which you want to graph into this $scope.selection. It is then passed into the directive. <br/><br/>
+      </div>
+      <div class="row">
+        <b> (boxPlot) Directive: </b> <br/>
+
+        scope.render(data): 'scope.selection' is passed as the data object. This will select new objects to graph. <br/>
+        Additionally, we will watch for changes in the data object, and update the chart when it has changed. <br/><br/>
+      </div>
+      <div class="row">
+        <b> Changes to original box.js from bl.ocks.org: </b> <br/>
+
+        D3 integration, can add and remove boxes. The data is actually passed in through the directive and not the controller however. This can be changed if needed. </br>
+        This is used to remove any extra boxes. See: http://bost.ocks.org/mike/circles/ for explanation on enter() and exit() . <br/> Essentially, enter() is used whenever an additionaly element enters your dataset, and exit() is used whenever an element is removed. <br/> From your dataset.
+      </div>
+    </h4>
+  </div>
+  <div class="col-md-1">
+
+  </div>
+</div>
+
+
+
 
 <div class="row">
 
@@ -213,7 +304,7 @@ $(document).ready(function () {
 
 
 </div>
-
+</div>
 
 
 </body>
