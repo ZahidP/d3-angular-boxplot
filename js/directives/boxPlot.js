@@ -4,8 +4,8 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
       return {
         restrict: 'EA',
         scope: {
-          data: "="
-       //   label: "@",
+          data: "=",
+          label: "@",
        //   onClick: "&"
         },
         link: function(scope, iElement, iAttrs) {
@@ -47,7 +47,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
 	         }, true);	
 
 	          // define render function
-    scope.render = function(data){
+    scope.render = function(data,label){
       // remove all previous items before render
          
     //  svg.selectAll('.box').remove();
@@ -69,8 +69,10 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
 
                 // For each small multiple…
                 function box(g) {
-                  g.each(function(d, i) {
-                    d = d.map(value).sort(d3.ascending);
+                  g.each(function(data, i) {
+              //      d = d.map(value).sort(d3.ascending);
+
+                var d = data[1].sort(d3.ascending);
                     var g = d3.select(this),
                         n = d.length,
                         min = d[0],
@@ -399,7 +401,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
 
   		    d3.csv("data-sets/allstats-sorted.csv", function(error, csv) {
   		      var datam = [];
-  		     
+  		      var category = 'x.Tgts';
   		      csv.forEach(function(x) {
   		        var e = parseFloat(x.playerid - 1),
   		            r = parseFloat(x.row - 1),
@@ -413,7 +415,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
   		        if (s < min) min = s;
   		      });
 
-  		      console.log('Billy Mays here with your d3 directive');
+  		      
   		      //console.log(broken);
   		      chart.domain([min, max]);
 
@@ -426,9 +428,19 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
           var selected = [];
   			  selected = data;
   		      var dataFinal = [];
+
+            
+
   		      function addArrElements(element, index, array) {
+<<<<<<< Updated upstream
   		      dataFinal.push(datam[element]);
   		      };                                         // so far this approach works
+=======
+            //dataFinal.push(scope.label[element]);
+            console.log(element);
+  		      dataFinal.push(datam[element][1]);
+  		      };                                        
+>>>>>>> Stashed changes
 
   		   selected.forEach(addArrElements);
   		   
@@ -455,6 +467,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
   		          .attr("height", height + margin.bottom + margin.top)
   		        .append("g")
   		          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+<<<<<<< Updated upstream
   		          .call(chart.duration(1000));				// chart ---> d3.box,     (duration is an optional method)
 
    /*           
@@ -469,6 +482,71 @@ circle.enter().append("circle")
 
   		      
   		    });
+=======
+  		          .call(chart.duration(1000));				// chart ---> d3.box,     (duration is an optional method)  
+
+   /*           svg.selectAll(".box")
+                  .data(dataFinal, function (d) {return d;})
+                  .enter().append("g")
+                  .attr("transform", function (d) { return "translate(" + x(d[0]) + "," margin.top + ")"; } )
+                  .call(chart.width(x.rangeBand()));  */
+
+/*
+      // the x-axis
+      var x = d3.scale.ordinal()     
+        .domain( dataFinal.map(function(d) { console.log(d); return d[0] } ) )     
+        .rangeRoundBands([0 , width], 0.7, 0.3);    
+     
+      var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+ */    
+      // the y-axis
+      var y = d3.scale.linear()
+        .domain([min, max])
+        .range([height + margin.top, 0 + margin.top]);
+      
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+      
+            
+      // add a title
+      svg.append("text")
+            .attr("x", (width / 2))             
+            .attr("y", 0 + (margin.top / 2))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "18px") 
+            //.style("text-decoration", "underline")  
+            .text("Stats 2011-2013");
+     
+       // draw y axis
+      svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+        .append("text") // and text1
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .style("font-size", "16px") 
+          .text("Revenue in €");    
+ /*     
+      // draw x axis  
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
+          .call(xAxis)
+        .append("text")             // text label for the x axis
+            .attr("x", (width / 2) )
+            .attr("y",  10 )
+        .attr("dy", ".71em")
+            .style("text-anchor", "middle")
+        .style("font-size", "16px") 
+            .text("Quarter"); 
+  */		      
+  		    });     // close csv function
+>>>>>>> Stashed changes
 
 		    
 
