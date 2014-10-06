@@ -1,0 +1,23 @@
+#fixed-nav-container
+{
+	padding:0px;
+	position: fixed;
+
+}
+
+#left-nav,#left-nav > li > a, #left-nav > li
+{
+	border:none;
+}
+
+#left-nav > li > a
+{
+	padding-top:3em;
+	padding-bottom:3em;
+}
+
+#firstChart
+{
+	transition:visibility .25s .2s ease, opacity .25s .2s ease;
+	webkit-transition:visibility .25s .2s ease, opacity .25s .2s ease;
+}

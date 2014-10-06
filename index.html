@@ -1,79 +1,221 @@
 <!DOCTYPE html>
-<html>
+<meta charset="utf-8">
+<head>
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="D3-angular-boxpot : D3.js Boxplot Directive using Angular : Based off of Mike Bostock&#39;s d3-boxplot, and Gregory Hilkert&#39;s d3AngularIntegration">
+<link href='https://fonts.googleapis.com/css?family=Fenix|Poiret+One|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway:500,400,300|Open+Sans:600,400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400|Lato:100,300,400,100italic,300italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  <!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script> <!-- angular -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> <!-- bootstrap -->
 
-    <title>D3-angular-boxpot</title>
-  </head>
 
-  <body>
+<script type="text/javascript" src="js/boxPlotApp.js"></script>
+<script type="text/javascript" src="js/directives/boxPlot.js"></script>
+<script type="text/javascript" src="js/controllers/footballCtrl.js"></script>
+<!-- stylesheets -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" charset='utf-8'> <!-- bootstrap -->
+  <style>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ZahidP/d3-angular-boxpot">View on GitHub</a>
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
 
-          <h1 id="project_title">D3-angular-boxpot</h1>
-          <h2 id="project_tagline">D3.js Boxplot Directive using Angular : Based off of Mike Bostock&#39;s d3-boxplot, and Gregory Hilkert&#39;s d3AngularIntegration</h2>
+  .box {
+    font: 10px sans-serif;
+  }
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ZahidP/d3-angular-boxpot/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ZahidP/d3-angular-boxpot/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+  .label {
+    font: 10px sans-serif;
+  }
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+  .box line,
+  .box rect,
+  .box circle {
+    fill: rgba(140,160,230,.3);
+    stroke: #000;
+    stroke-width: 1.5px;
+    webkit-transition:fill 500ms;
+    transition:fill 500ms;
+  }
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+  .box rect:hover {
+    webkit-transition:fill 500ms;
+    transition:fill 500ms;
+    fill: rgba(145,165,235,.6);
+    stroke: #000;
+    stroke-width: 1.5px;
+  }
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+  .box .center {
+    stroke-dasharray: 3,3;
+  }
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+  .box .outlier {
+    fill: rgba(230,230,230,.35);
+    stroke: #ccc;
+  }
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+  .selected {
+    background-color: rgba(210,210,210,.95) !important;
+  }
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+  #playerCheck-row {
+    height:12em;
+  }
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+  :checked{
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+  }
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+  #playerCheck-row > div > div > label  {
+    font-size:1.2em;
+    margin-left:0px;
+    width:24%;
+    border:1px solid rgb(180,180,180);
+    border-radius:4px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top:1em;
+    padding-bottom:1em;
+    margin:.2em;
+    font-family:Open Sans;
+    font-weight:300;
+    text-align: center;
+    background-color:rgba(250,250,250,.95);
+    webkit-transition:background-color 500ms;
+    transition:background-color 500ms;
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+  }
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">D3-angular-boxpot maintained by <a href="https://github.com/ZahidP">ZahidP</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+  #playerCheck-row > div > div > label:hover {
+    background-color: rgba(230,230,230,.95);
+    webkit-transition:background-color 500ms;
+    transition:background-color 500ms;
+  }
 
+   #playerCheck-row > div > div > label:active {
+    background-color: rgba(160,180,230,.98) !important;
+    webkit-transition:background-color 1500ms;
+    transition:background-color 1500ms;
+  }
+
+  .nocheck {
     
+    display:none;
+  }  
 
-  </body>
+  .selected{
+    font-family: 700;
+  }
+
+  #box-container {
+    padding-left:4.5em;
+    padding-right:4.5em;
+    border:1px solid rgba(160,160,160,.8);
+    margin-bottom: 2em;
+    margin-top: 2em;
+    height:32em;
+  }
+  #box-title > h3, #box-title {
+    font-family: Open Sans;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  #drawHere {
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+ 
+
+  </style>
+
+  <script>
+
+$(document).ready(function () {
+
+
+
+});  
+
+  </script>
+
+
+</head>
+<body ng-app="boxPlotApp">
+
+ 
+
+
+<div class="container-fluid" ng-controller="footballCtrl">
+
+<div class="row">
+
+  <div class="col-md-2">
+    <!-- empty space -->
+  </div>
+
+  <div class="col-md-8" id="box-container">
+      <!-- boxplot area -->
+        <div id="box-title">
+          <h3>  NFL: Wide Receiver Stats <br/> 2011 - 2013 </h3>
+        </div>
+       <box-plot data="selection" label="players"> </box-plot>
+    
+  </div>
+
+  <div class="col-md-1">
+    <!-- empty space -->
+  </div>
+</div>
+
+
+
+
+<div class="row" id="playerCheck-row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+     <div class="form-group"> 
+        <label ng-repeat="playerName in players" class="checkbox-inline checkbox-box" ng-class="{selected : selection.indexOf($index) !== -1 }">
+        <input
+          class="player-box"
+          style="opacity:0;display:none"
+          type="checkbox"
+          name="selectedPlayers[]"
+          value="{{playerName}}"
+          ng-checked="selection.indexOf(playerName) > -1"
+          ng-click="toggleSelection(playerName)">
+          {{playerName}}
+        </label>
+      </div>
+  </div>
+  <div class="col-md-1">
+  </div>
+<div class='row'>
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+   
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+
+
+
+
+</div>
+
+
+
+</body>
+
 </html>
