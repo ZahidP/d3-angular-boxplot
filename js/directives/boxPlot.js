@@ -5,22 +5,15 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
         restrict: 'EA',
         scope: {
           data: "=",
-          label: "@",
+          label: "="
        //   onClick: "&"
         },
         link: function(scope, iElement, iAttrs) {
         	d3Service.d3().then(function(d3) {
-	         var svg = d3.select(iElement[0]).selectAll("svg");
-           var widthTitle = 400;
+
+          
            
-           // add a title
-          svg.append("text")
-                .attr("x", (widthTitle / 2))             
-                .attr("y", 0 + (80 / 2))
-                .attr("text-anchor", "middle")  
-                .style("font-size", "18px") 
-                //.style("text-decoration", "underline")  
-                .text("NFL WR Stats: 2011-2013");
+          
           
 
 	          // on window resize, re-render d3 canvas
@@ -51,7 +44,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
       // remove all previous items before render
          
     //  svg.selectAll('.box').remove();
-
+    console.log(scope.label[1]);
 
 
       (function() {
@@ -69,10 +62,10 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
 
                 // For each small multiple…
                 function box(g) {
-                  g.each(function(data, i) {
+                  g.each(function(dataFinal, i) {
               //      d = d.map(value).sort(d3.ascending);
 
-                var d = data[1].sort(d3.ascending);
+                var d = dataFinal[1].sort(d3.ascending);
                     var g = d3.select(this),
                         n = d.length,
                         min = d[0],
@@ -257,21 +250,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
                         .duration(duration)
                         .attr("y", x1);
 
-             /*       boxTick.attr("class", "box")
-                    .attr("dy", ".3em")
-                    .attr("dx", function(d, i) { return i & 1 ? 6 : -6 })
-                    .attr("x", function(d, i) { return i & 1 ?  + width : 0 })
-                    .attr("y", x0)
-                    .attr("text-anchor", function(d, i) { return i & 1 ? "start" : "end"; })
-                    .text(format)
-                  .transition()
-                    .duration(duration)
-                    .attr("y", x1);
-
-                    boxTick.transition()
-                        .duration(duration)
-                        .text(format)
-                        .attr("y", x1); */
+         
 
                     // Update whisker ticks. These are handled separately from the box
                     // ticks because they may or may not exist, and we want don't want
@@ -391,162 +370,139 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {		//might hav
   		    var min = Infinity,
   		        max = -Infinity;
 
-  		    var chart = d3.box()
-  		        .whiskers(iqr(1.5))
-  		        .width(width)
-  		        .height(height);
+  		   
+
 
   		    
 
 
   		    d3.csv("data-sets/allstats-sorted.csv", function(error, csv) {
   		      var datam = [];
+
+          
+
+
+           for (var jj=0; jj < 20; jj+=1) {         // loop to initialize datam array
+            datam[jj] = [];                         // initialie each column
+            datam[jj][0] = scope.label[jj];         // set first row/element of each column to player name
+            datam[jj][1] = [];                      // set next row/element to empty, will eventually be stats array
+          }
+          
+
   		      var category = 'x.Tgts';
   		      csv.forEach(function(x) {
   		        var e = parseFloat(x.playerid - 1),
   		            r = parseFloat(x.row - 1),
   		            s = parseFloat(x.Tgts),
   		            d = datam[e];
-  		        
-  		        if (!d) d = datam[e] = [s];
-  		        else d.push(s);
+  		        console.log('e is :' + e);
+  		        if (!d) d = datam[e][1] = [s];
+  		        d[1].push(s);                         // push stats array into the second element of each column
   		        
   		        if (s > max) max = s;
   		        if (s < min) min = s;
   		      });
+            
+  		     
 
-  		      
-  		      //console.log(broken);
-  		      chart.domain([min, max]);
-
-  		      	// ====== subsetting the data array ====== //
+  		    // ====== subsetting the data array ====== //
   			
 
-
-  			
-  	
           var selected = [];
-  			  selected = data;
-  		      var dataFinal = [];
+          selected = data;        // data is the data object passed in from the scope, selected takes these indices
+          console.log(data);      
+  		    var dataFinal = [];     // initialize dataFinal array, this will be used to display selected elements
+          
 
             
 
-  		      function addArrElements(element, index, array) {
-<<<<<<< Updated upstream
-  		      dataFinal.push(datam[element]);
-  		      };                                         // so far this approach works
-=======
-            //dataFinal.push(scope.label[element]);
-            console.log(element);
-  		      dataFinal.push(datam[element][1]);
-  		      };                                        
->>>>>>> Stashed changes
+		      function addArrElements(element, index, array) {      // this function addArrElements will be used
+		        dataFinal.push(datam[element]);                     // to push the selected elements into dataFinal
+  		      };  
 
-  		   selected.forEach(addArrElements);
+    
+  		    selected.forEach(addArrElements);                     // addArrElements is called here on the 'selected' array
   		   
-
+          
 
 
       // ======= Actual Drawing Part of the Code ======== //
-      /*
-      d3.select(iElement[0])
-                  .append("svg")
-                  .attr("width", "100%");
-                  */
-  		//    svg.selectAll('.box').remove();
-  		        var svg1 =  svg.data(dataFinal, function(d) {  return d;});
-              svg1.exit().transition()
-                        .duration(500)
-                        .attr("y", 20)
-                        .style("opacity", 1e-6)
-                        .remove();
+  
+        var chart = d3.box()
+          .whiskers(iqr(1.5))
+          .height(height) 
+          .domain([min, max]);
+   
 
-  		        svg1.enter().append("svg")
-  		          .attr("class", "box")
-  		          .attr("width", width + margin.left + margin.right)
-  		          .attr("height", height + margin.bottom + margin.top)
-  		        .append("g")
-  		          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-<<<<<<< Updated upstream
-  		          .call(chart.duration(1000));				// chart ---> d3.box,     (duration is an optional method)
+        var svg = d3.select(iElement[0]).append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .attr("class", "box")    
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+        // the x-axis
+        var x = d3.scale.ordinal()     
+          .domain( dataFinal.map(function(d) { console.log(d); return d[0] } ) )     
+          .rangeRoundBands([0 , width], 0.7, 0.3);    
 
-   /*           
-              var circle = svg.selectAll("circle")
-    .data(data);
+        var xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
 
-circle.exit().remove();
+        // the y-axis
+        var y = d3.scale.linear()
+          .domain([min, max])
+          .range([height + margin.top, 0 + margin.top]);
+  
+        var yAxis = d3.svg.axis()
+          .scale(y)
+          .orient("left");
 
-circle.enter().append("circle")
-    .attr("r", 2.5);    */
-
-
-  		      
-  		    });
-=======
-  		          .call(chart.duration(1000));				// chart ---> d3.box,     (duration is an optional method)  
-
-   /*           svg.selectAll(".box")
-                  .data(dataFinal, function (d) {return d;})
-                  .enter().append("g")
-                  .attr("transform", function (d) { return "translate(" + x(d[0]) + "," margin.top + ")"; } )
-                  .call(chart.width(x.rangeBand()));  */
-
-/*
-      // the x-axis
-      var x = d3.scale.ordinal()     
-        .domain( dataFinal.map(function(d) { console.log(d); return d[0] } ) )     
-        .rangeRoundBands([0 , width], 0.7, 0.3);    
-     
-      var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom");
- */    
-      // the y-axis
-      var y = d3.scale.linear()
-        .domain([min, max])
-        .range([height + margin.top, 0 + margin.top]);
-      
-      var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
-      
-            
-      // add a title
-      svg.append("text")
-            .attr("x", (width / 2))             
-            .attr("y", 0 + (margin.top / 2))
-            .attr("text-anchor", "middle")  
-            .style("font-size", "18px") 
-            //.style("text-decoration", "underline")  
-            .text("Stats 2011-2013");
-     
-       // draw y axis
-      svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-        .append("text") // and text1
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
+        // draw the boxplots  
+        svg.selectAll(".box")    
+            .data(data)
+          .enter().append("g")
+          .attr("transform", function(d) { return "translate(" +  x(d[0])  + "," + margin.top + ")"; } )
+            .call(chart.width(x.rangeBand()).duration(1000)); 
+        
+              
+        // add a title
+        svg.append("text")
+              .attr("x", (width / 2))             
+              .attr("y", 0 + (margin.top / 2))
+              .attr("text-anchor", "middle")  
+              .style("font-size", "18px") 
+              //.style("text-decoration", "underline")  
+              .text("WR Stats 2011-2013");
+ 
+         // draw y axis
+        svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+          .append("text") // and text1
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .style("font-size", "16px") 
+            .text("Revenue in €");    
+  
+        // draw x axis  
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
+            .call(xAxis)
+          .append("text")             // text label for the x axis
+              .attr("x", (width / 2) )
+              .attr("y",  10 )
           .attr("dy", ".71em")
-          .style("text-anchor", "end")
+              .style("text-anchor", "middle")
           .style("font-size", "16px") 
-          .text("Revenue in €");    
- /*     
-      // draw x axis  
-      svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
-          .call(xAxis)
-        .append("text")             // text label for the x axis
-            .attr("x", (width / 2) )
-            .attr("y",  10 )
-        .attr("dy", ".71em")
-            .style("text-anchor", "middle")
-        .style("font-size", "16px") 
-            .text("Quarter"); 
-  */		      
+              .text("Quarter"); 
+
+  	      
   		    });     // close csv function
->>>>>>> Stashed changes
 
 		    
 
