@@ -395,7 +395,7 @@ boxPlotApp.directive('boxPlot', ['d3Service', function(d3Service) {   //might ha
             csv.forEach(function(x) {
               var e = parseFloat(x.playerid - 1),
                   r = parseFloat(x.row - 1),
-                  s = parseFloat(x.Tgts),
+                  s = parseFloat(x.Rec),
                   d = datam[e];
               
               if (!d) d = datam[e] = [s];
