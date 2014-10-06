@@ -2,4 +2,6 @@
 /js/Chart.js
 /js/data
 /js/jquery-1.11.1.js
-/data-sets
+/data-sets/rec-wr.csv
+/data-sets/tgts-wr.csv
+/data-sets/yds-wr.csv

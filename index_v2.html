@@ -72,7 +72,7 @@
 
   }
 
-  #playerCheck-row > div > div > label  {
+  #playerCheck-row  > div > label  {
     font-size:1.2em;
     margin-left:0px;
     width:24%;
@@ -119,8 +119,13 @@
     border:0px solid rgba(160,160,160,.8);
     margin-bottom: 2em;
     margin-top: 2em;
-    height:32em;
+    
   }
+  #draw-row {
+   webkit-transition:max-height 500ms;
+   transition:max-height 500ms;
+  } 
+
   #box-title > h3, #box-title {
     font-family: Open Sans;
     font-weight: 300;
@@ -133,24 +138,25 @@
 
   }
 
-  #grabber-row {
+  #grabber-col {
     text-align:left;
-    background-color: rgba(30,30,30,.95);
+    background-color: rgba(10,10,10,.65);
     font-family: Lato, Open Sans;
-    line-height: 1.5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
   }
 
-  #grabber-row > div > h2, #grabber-row > div > h4 {
+  #grabber-col > div > h2, #grabber-col > div > h5 {
     font-family: Lato, Open Sans;
     font-weight: 300;
     color:rgb(220,220,220);
-    line-height: 1.5em;
+    line-height: 1.25em;
   }
 
   #grabber-title {
-    text-align: right;
+    text-align: center;
     font-weight: 400;
-    color: rgb(210,210,210);
+    color: rgb(240,240,240);
   }
 
 body {
@@ -167,9 +173,12 @@ $(document).ready(function () {
   $('#to-top').click(function(){
     console.log('scroll');
       $('html, body').animate({
+        //e.preventDefault();
           scrollTop: $('body').offset().top
       }, 750); 
   });
+
+  //$('.checkbox-box') if at least one checkbox is checked then animate drawing box div
 
 
 });  
@@ -198,114 +207,79 @@ $(document).ready(function () {
           </ul>
         </div>
       </nav>
-    </div>
+</div>
 
 <div class="container-fluid" ng-controller="footballCtrl">
 
-<div class="row" id="grabber-row">
-  <div class="col-md-1">
-
-  </div>
-  <div class="col-md-10">
-    <div class="row" id="grabber-title">
-      <h2> d3-angular-directive </h2>
-    </div>
-    <h4>  
-      <div class="row">
-      <b>D3.js Boxplot Directive using Angular (based off of Mike Bostock's d3-boxplot <br/>
-          and Gregory Hilkert's d3AngularIntegration) </b>
-        <br/><br/> 
-
-        See: http://bl.ocks.org/mbostock/4061502 d3-boxplot <br/> 
-        See: https://github.com/EpiphanyMachine/d3AngularIntegration d3-angular integration <br/> <br/>
-
-        This readme could probably use some work, please let me know if I can improve. Also any suggestions are welcome. <br/><br/>
-      </div>
-      <div class="row">
-        <b> Controller: </b> <br/>
-
-        '$scope.selection' array: the buttons underneath the boxplot are used to push new indices <br/>
-        which you want to graph into this $scope.selection. It is then passed into the directive. <br/><br/>
-      </div>
-      <div class="row">
-        <b> (boxPlot) Directive: </b> <br/>
-
-        scope.render(data): 'scope.selection' is passed as the data object. This will select new objects to graph. <br/>
-        Additionally, we will watch for changes in the data object, and update the chart when it has changed. <br/><br/>
-      </div>
-      <div class="row">
-        <b> Changes to original box.js from bl.ocks.org: </b> <br/>
-
-        D3 integration, can add and remove boxes. The data is actually passed in through the directive and not the controller however. This can be changed if needed. </br>
-        This is used to remove any extra boxes. See: http://bost.ocks.org/mike/circles/ for explanation on enter() and exit() . <br/> Essentially, enter() is used whenever an additionaly element enters your dataset, and exit() is used whenever an element is removed. <br/> From your dataset.
-      </div>
-    </h4>
-  </div>
-  <div class="col-md-1">
-
-  </div>
-</div>
+  <div class="row">
 
 
-
-
-<div class="row">
-
-  <div class="col-md-2">
-    <!-- empty space -->
-  </div>
-
-  <div class="col-md-8" id="box-container">
-      <!-- boxplot area -->
-        <div id="box-title">
-          <h3>  NFL: Wide Receiver Stats <br/> 2011 - 2013 </h3>
+    <div class="col-md-3" id="grabber-col">
+      <div class="col-md-12">
+        <div class="row" id="grabber-title">
+            <h2> d3-angular-directive </h2>
         </div>
-       <box-plot data="selection" label="players"> </box-plot>
-    
-  </div>
+        <h5>  
+          <div class="row">
+            D3.js Boxplot Directive using Angular: based off of Mike Bostock's d3-boxplot
+              and Gregory Hilkert's d3AngularIntegration 
+            <br/><br/> 
 
-  <div class="col-md-1">
-    <!-- empty space -->
-  </div>
-</div>
+            See: <br/> http://bl.ocks.org/mbostock/4061502  <br/> 
+            See: <br/>https://github.com/EpiphanyMachine/ <br/>d3AngularIntegration <br/> <br/>
 
+            This readme could probably use some work, let me know if I can improve. <br/><br/>
+          </div>
+          <div class="row">
+            <b> Controller: </b> <br/>
 
+            '$scope.selection' array: the buttons underneath the boxplot are used to push new indices <br/>
+            which you want to graph into this $scope.selection. It is then passed into the directive. <br/><br/>
+          </div>
+          <div class="row">
+            <b> (boxPlot) Directive: </b> <br/>
 
+            scope.render(data): 'scope.selection' is passed as the data object. This will select new objects to graph. 
+            Additionally, we will watch for changes in the data object, and update the chart when it has changed. <br/><br/>
+          </div>
+          <div class="row">
+            <b> Changes to original box.js from bl.ocks.org: </b> <br/>
 
-<div class="row" id="playerCheck-row">
-  <div class="col-md-2">
-  </div>
-  <div class="col-md-8">
-     <div class="form-group"> 
-        <label ng-repeat="playerName in players" class="checkbox-inline checkbox-box" ng-class="{selected : selection.indexOf($index) !== -1 }">
-        <input
-          class="player-box"
-          style="opacity:0;display:none"
-          type="checkbox"
-          name="selectedPlayers[]"
-          value="{{playerName}}"
-          ng-checked="selection.indexOf(playerName) > -1"
-          ng-click="toggleSelection(playerName)">
-          {{playerName}}
-        </label>
+            D3 integration, can add and remove boxes. The data, however, is actually passed in through the directive and not the controller..This can be changed if needed. </br> <br/>
+            This is used to remove any extra boxes. See: http://bost.ocks.org/mike/circles/ for explanation on enter() and exit() . <br/> <br/>Essentially, enter() is used whenever an additionaly element enters your dataset, and exit() is used whenever an element is removed. <br/> From your dataset.
+          </div>
+        </h5>
       </div>
-  </div>
-  <div class="col-md-1">
-  </div>
-<div class='row'>
-  <div class="col-md-2">
-  </div>
-  <div class="col-md-8">
-   
-  </div>
-  <div class="col-md-2">
-  </div>
-</div>
+    </div>
 
+      
+      <div class="col-md-9" id="box-container">
+      <div class="row" id="draw-row">
+          <!-- boxplot area -->
+            <div id="box-title">
+              <h3>  NFL: Wide Receiver Stats <br/> 2011 - 2013 </h3>
+            </div>
+           <box-plot data="selection" label="players"> </box-plot>
+      </div>
+      
+        <div class="row" id="playerCheck-row">
+             <div class="form-group"> 
+                <label ng-repeat="playerName in players" class="checkbox-inline checkbox-box" ng-class="{selected : selection.indexOf($index) !== -1 }">
+                <input
+                  class="player-box"
+                  style="opacity:0;display:none"
+                  type="checkbox"
+                  name="selectedPlayers[]"
+                  value="{{playerName}}"
+                  ng-checked="selection.indexOf(playerName) > -1"
+                  ng-click="toggleSelection(playerName)">
+                  {{playerName}}
+                </label>
+            </div>
+        </div>
+    </div>      
 
-
-
-</div>
+  </div>
 </div>
 
 
