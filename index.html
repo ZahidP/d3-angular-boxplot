@@ -65,7 +65,7 @@
   }
 
   #playerCheck-row {
-    height:12em;
+    
   }
 
   :checked{
@@ -156,6 +156,7 @@
 
 body {
   padding-top: 2.5em;
+  overlow-x:hidden !important;
 }
 
 .color-title {
@@ -200,23 +201,24 @@ $(document).ready(function () {
 
  
 
-  
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id='nav1'>
-  <div class="container-fluid">
-  <!-- brand name and/or logo -->
-      <div class="navbar-brand" id="brand-land"> 
-        d3-angular-boxplot
-      </div>
-  <!-- other stuff on the right -->
-    <ul class="nav navbar-nav navbar-right" id="brand-side">
-      <li >
-        <a href="javascript:void(0)" id="to-top"> Back to Top </a>
-      </li>
+<div class="container-fluid">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id='nav1'>
+    <div class="container">
+    <!-- brand name and/or logo -->
+        <div class="navbar-brand" id="brand-land"> 
+          d3-angular-boxplot
+        </div>
+    <!-- other stuff on the right -->
+      <ul class="nav navbar-nav navbar-right" id="brand-side">
+        <li >
+          <a href="javascript:void(0)" id="to-top"> Back to Top </a>
+        </li>
 
-   
-    </ul>
-   </div>
-</nav>
+     
+      </ul>
+     </div>
+  </nav>
+</div>
      
     
 
@@ -239,7 +241,7 @@ $(document).ready(function () {
         <p class="links">
         http://bl.ocks.org/mbostock/4061502 (d3-boxplot) <br/> 
         https://github.com/EpiphanyMachine/d3AngularIntegration (d3-angular integration) 
-        </p> <br/> <br/>
+        </p> <br/> 
 
         This readme could probably use some work, please let me know if I can improve. Also any suggestions are welcome. <br/><br/>
       </div>
@@ -247,7 +249,7 @@ $(document).ready(function () {
         <b class="color-title"> Controller: </b> <br/>
 
         '$scope.selection' array: the buttons underneath the boxplot are used to push new indices <br/>
-        which you want to graph into this $scope.selection. It is then passed into the directive. <br/><br/>
+        which you want to graph into this $scope.selection. It ($scope.selection) is then passed into the directive. <br/><br/>
       </div>
       <div class="row">
         <b class="color-title"> (boxPlot) Directive: </b> <br/>
@@ -268,6 +270,12 @@ $(document).ready(function () {
               Essentially, enter() is used whenever an additional element enters your dataset, and exit() is used whenever an element is removed. From your dataset.
             </li>
           </ul>
+      </div>
+      <div style="text-align:center;margin-top:1.5em;font-family:Open Sans">
+            <i><b class="links">
+              Click on the player names below to see boxplots of
+              their receptions per game from 2011 to 2013 (no labels yet).
+            </b></i>
       </div>
     </h4>
   </div>
@@ -294,7 +302,7 @@ $(document).ready(function () {
     
   </div>
 
-  <div class="col-md-1">
+  <div class="col-md-2">
     <!-- empty space -->
   </div>
 </div>
