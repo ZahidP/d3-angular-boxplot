@@ -1,0 +1,171 @@
+ <style>
+
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .row {
+    margin-left:0px;
+    margin-right:0px;
+  }
+
+  .container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .box {
+    font: 10px sans-serif;
+  }
+
+  .label {
+    font: 10px sans-serif;
+  }
+
+  .box line,
+  .box rect,
+  .box circle {
+    fill: rgba(140,160,230,.3);
+    stroke: #000;
+    stroke-width: 1.5px;
+    webkit-transition:fill 500ms;
+    transition:fill 500ms;
+  }
+
+  .box rect:hover {
+    webkit-transition:fill 500ms;
+    transition:fill 500ms;
+    fill: rgba(145,165,235,.6);
+    stroke: #000;
+    stroke-width: 1.5px;
+  }
+
+
+
+  .box .center {
+    stroke-dasharray: 3,3;
+  }
+
+  .box .outlier {
+    fill: rgba(230,230,230,.35);
+    stroke: #ccc;
+  }
+
+  .selected {
+    background-color: rgba(210,210,210,.95) !important;
+  }
+
+  #playerCheck-row {
+    
+  }
+
+  :checked{
+
+  }
+
+  #playerCheck-row > div > div > label  {
+    font-size:1.2em;
+    margin-left:0px;
+    width:24%;
+    border:1px solid rgb(180,180,180);
+    border-radius:4px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top:1em;
+    padding-bottom:1em;
+    margin:.2em;
+    font-family:Open Sans;
+    font-weight:300;
+    text-align: center;
+    background-color:rgba(250,250,250,.95);
+    webkit-transition:background-color 500ms;
+    transition:background-color 500ms;
+
+  }
+
+  #playerCheck-row > div > div > label:hover {
+    background-color: rgba(230,230,230,.95);
+    webkit-transition:background-color 500ms;
+    transition:background-color 500ms;
+  }
+
+   #playerCheck-row > div > div > label:active {
+    background-color: rgba(160,180,230,.98) !important;
+    webkit-transition:background-color 1500ms;
+    transition:background-color 1500ms;
+  }
+
+  .nocheck {
+    
+    display:none;
+  }  
+
+  .selected{
+    font-family: 700;
+  }
+
+  #box-container {
+    padding-left:4.5em;
+    padding-right:4.5em;
+    border:0px solid rgba(160,160,160,.8);
+    margin-bottom: 2em;
+    margin-top: 2em;
+    height:32em;
+  }
+  #box-title > h3, #box-title {
+    font-family: Open Sans;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  #drawHere {
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+  #grabber-row {
+    text-align:left;
+    background-color: rgba(30,30,30,.88);
+    font-family: Lato, Open Sans;
+    line-height: 1.25em;
+    padding-bottom: 1.5em;
+  }
+
+  #grabber-row > div > h2, #grabber-row > div > h4 {
+    font-family: Lato, Open Sans;
+    font-weight: 300;
+    color:rgb(220,220,220);
+    line-height: 1.25em;
+  }
+
+  #grabber-title {
+    text-align: right;
+    font-weight: 400;
+    color: rgb(230,230,230);
+  }
+
+body {
+  padding-top: 2.5em;
+  overlow-x:hidden !important;
+}
+
+.color-title {
+  color:rgb(235,165,140);
+  /*color:rgb(240,240,240);*/
+}
+
+.links {
+  color: rgb(120,180,240);
+}
+
+.list-unstyled {
+  line-height: 1.5em;
+}
+
+#nav1 {
+  width:100%;
+}
+ 
+
+  </style>
