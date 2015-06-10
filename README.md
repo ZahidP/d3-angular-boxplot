@@ -1,6 +1,8 @@
 d3-angular-boxpot
 =================
 
+### ZahidP.github.io/d3-angular-boxplot
+
 D3.js Boxplot Directive using Angular 
 (based off of Mike Bostock's d3-boxplot and Gregory Hilkert's d3AngularIntegration)
 
@@ -8,7 +10,6 @@ See: http://bl.ocks.org/mbostock/4061502   d3-boxplot <br/>
 See: https://github.com/EpiphanyMachine/d3AngularIntegration   d3-angular integration
 
 
-<i>This readme could probably use some work, please let me know if I can improve. Also any suggestions are welcome.</i>
 
 
 
